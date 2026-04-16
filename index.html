@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the site responsive on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website title (shows on browser tab) -->
+    <title>My Portfolio</title>
+
+    <!-- Bootstrap CSS (for styling later) -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+    >
+    <style>
+    :root {
+        --bg: #111827;
+        --surface: rgba(227, 242, 253, 0.08);
+        --surface-soft: rgba(148, 163, 184, 0.18);
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        --primary: #93c5fd;
+        --primary-soft: rgba(147, 197, 253, 0.20);
+        --accent: #67e8f9;
+        --card-border: rgba(226, 232, 240, 0.18);
+        --shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top left, rgba(147, 197, 253, 0.12), transparent 24%),
+                    radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.08), transparent 18%),
+                    linear-gradient(180deg, #111827 0%, #1e293b 55%, #111827 100%);
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+    }
+
+    section {
+        padding: 100px 0;
+    }
+
+    #home {
+        min-height: calc(100vh - 70px);
+        position: relative;
+    }
+
+    #home::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.10), transparent 25%),
+                    radial-gradient(circle at 20% 60%, rgba(34, 197, 94, 0.08), transparent 22%);
+        pointer-events: none;
+    }
+
+    #home .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    #about,
+    #projects,
+    #certifications {
+        background: rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(148, 163, 184, 0.14);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    #skills {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 100px 3rem;
+    }
+
+    #skills .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .navbar {
+        background: rgba(30, 41, 59, 0.98) !important;
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+        color: #ffffff !important;
+    }
+
+    .navbar .nav-link {
+        transition: all 0.25s ease;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.14) !important;
+        color: #ffffff !important;
+        border-radius: 0.55rem !important;
+        font-weight: 700 !important;
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.65);
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar-toggler:hover {
+        background-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.95)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+   .card {
+    background: linear-gradient(
+        145deg,
+        rgba(30, 41, 59, 0.95),
+        rgba(15, 23, 42, 0.95)
+    );
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 20px;
+    transition: all 0.35s ease;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+    .project-card .card-text {
+        color: rgba(241, 245, 249, 0.95) !important;
+    }
+
+    .project-card .card-title {
+        color: #7dd3fc !important;
+    }
+
+    .card:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        border-color: rgba(125, 211, 252, 0.6);
+    }
+
+    .skill-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(226, 232, 240, 0.16);
+        border-radius: 20px;
+        padding: 16px;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .skill-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 26px 60px rgba(15, 23, 42, 0.15);
+        border-color: rgba(147, 197, 253, 0.35);
+    }
+
+    .skill-1 {
+        border-color: rgba(56, 189, 248, 0.5) !important;
+        background: rgba(56, 189, 248, 0.05) !important;
+    }
+
+    .skill-2 {
+        border-color: rgba(34, 197, 94, 0.5) !important;
+        background: rgba(34, 197, 94, 0.05) !important;
+    }
+
+    .skill-3 {
+        border-color: rgba(147, 197, 253, 0.5) !important;
+        background: rgba(147, 197, 253, 0.05) !important;
+    }
+
+    .skill-4 {
+        border-color: rgba(103, 232, 249, 0.5) !important;
+        background: rgba(103, 232, 249, 0.05) !important;
+    }
+
+    .card img {
+        border-radius: 18px;
+    }
+
+    /* Project Card Styles */
+    .project-card .card-title {
+        color: #93c5fd !important; /* Primary blue for titles */
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .project-card .card-text {
+        color: rgba(226, 232, 240, 0.9) !important;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .project-card .card-img-bottom {
+        margin-top: 1rem;
+        border-radius: 18px;
+    }
+
+    /* Certification Card Styles */
+    .cert-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+        cursor: pointer;
+        background: #000;
+        aspect-ratio: 1;
+    }
+
+    .cert-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+    }
+
+    .cert-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 20px;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        text-align: center;
+    }
+
+    .cert-card:hover .cert-overlay {
+        transform: translateY(0);
+    }
+
+    .cert-info h6 {
+        color: #ffffff;
+        font-weight: 700;
+        margin-bottom: 12px;
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+
+    .cert-issuer {
+        color: rgba(226, 232, 240, 0.9);
+        font-size: 1.05rem;
+        margin: 0 0 15px 0;
+        font-weight: 500;
+    }
+
+    .cert-click-hint {
+        color: rgba(147, 197, 253, 0.8);
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin: 0;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease 0.2s;
+    }
+
+    .cert-card:hover .cert-click-hint {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card-body h5 {
+        color: #ffffff;
+    }
+
+    .card-body p,
+    .card-text,
+    .nav-link,
+    #about p,
+    #skills p,
+    #certifications p,
+    footer p {
+        color: var(--muted);
+    }
+
+    .badge {
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-weight: 600;
+        margin-right: 0.35rem;
+    }
+
+    .btn {
+        border-radius: 999px;
+        padding: 12px 24px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 35px rgba(56, 189, 248, 0.22);
+    }
+
+    .btn-dark {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: #ffffff !important;
+    }
+
+    .btn-dark:hover {
+        color: #ffffff !important;
+    }
+
+    .btn-outline-dark {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .btn-outline-dark:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    #home h1 {
+        font-size: clamp(2.8rem, 7vw, 4.6rem);
+        color: #ffffff;
+        letter-spacing: -0.03em;
+    }
+
+    #home h4 {
+        color: var(--muted);
+        min-height: 1.8rem;
+    }
+
+    #home p {
+        max-width: 640px;
+        margin: auto;
+        color: var(--text);
+    }
+
+    section h2,
+    section h3,
+    section h4,
+    section h5,
+    section h6 {
+        color: #ffffff;
+    }
+
+    section p,
+    section li,
+    section span,
+    .card-body p,
+    .card-text,
+    .text-muted,
+    footer p,
+    footer a {
+        color: rgba(226, 232, 240, 0.84) !important;
+    }
+
+    .text-muted {
+        color: rgba(226, 232, 240, 0.72) !important;
+    }
+
+    #contact {
+        background: #020617;
+    }
+
+    footer {
+        background: transparent;
+    }
+
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+    }
+
+    .scroll-reveal.scrolled {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+
+    /* ============================= */
+/* Project Links Hover Effect */
+/* ============================= */
+
+.project-card a {
+    color: #93c5fd;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Hover Effect */
+.project-card a:hover {
+    color: #ffffff;
+    background: rgba(42, 31, 253, 0.932);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+
+/* Underline animation */
+.project-card a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background-color: #67e8f9;
+    transition: width 0.3s ease;
+}
+
+.project-card a:hover::after {
+    width: 100%;
+}
+
+/* ============================= */
+/* See All Projects Link Style */
+/* ============================= */
+
+.project-link {
+    color: #93c5fd;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.project-link:hover {
+    color: #11daf5;
+    text-decoration: none;
+    transform: translateX(4px);
+}
+
+/* Underline animation */
+.project-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background-color: #67e8f9;
+    transition: width 0.3s ease;
+}
+
+.project-link:hover::after {
+    width: 100%;
+}
+
+/* ============================= */
+/* Navbar Email Styling */
+/* ============================= */
+
+.navbar .nav-link[href^="mailto"] {
+    color: #93c5fd !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link[href^="mailto"]:hover {
+    color: #67e8f9 !important;
+    text-decoration: underline;
+}
+
+/* ============================= */
+/* Fix Project Image Height */
+/* ============================= */
+
+.project-card img {
+    width: 100%;
+    height: 220px;       /* same height for all */
+    object-fit: cover;   /* crop nicely */
+}
+
+
+/* ============================= */
+/* Fix Project Image Layout */
+/* ============================= */
+
+.project-img-container {
+    width: 100%;
+    height: 220px;        /* same height */
+    overflow: hidden;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.project-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* crop properly */
+}
+/* ============================= */
+/* Contact Section Styling */
+/* ============================= */
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.16);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(147, 197, 253, 0.5);
+}
+
+/* Social Icons */
+.social-icon {
+    display: inline-block;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon img {
+    width: 50px;
+}
+
+.social-icon:hover {
+    transform: scale(1.15);
+}
+
+/* ============================= */
+/* Social Icon Background Fix */
+/* ============================= */
+
+.social-icon-bg {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    transition: all 0.3s ease;
+}
+
+/* Icon inside */
+.social-icon-bg img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* Hover effect */
+.social-icon:hover .social-icon-bg {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(147, 197, 253, 0.6);
+}
+
+</style>
+
+</head>
+
+<body>
+<!-- ============================= -->
+<!-- Navbar -->
+<!-- ============================= -->
+ <!-- ============================= -->
+<!-- Sticky Navigation Bar -->
+<!-- ============================= -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="#home">
+            My Portfolio
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!-- Centered Navigation -->
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#certifications">Certifications</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+        </li>
+    </ul>
+
+    <!-- Right Side Email -->
+    <div class="d-none d-lg-block">
+        <a href="mailto:akashcric17@gmail.com" class="nav-link fw-semibold">
+            akashcric17@gmail.com
+        </a>
+    </div>
+
+</div>
+
+    </div>
+</nav>
+
+
+<!-- ============================= -->
+<!-- Hero Section -->
+<!-- ============================= -->
+<!-- ============================= -->
+<!-- Hero Section -->
+<!-- ============================= -->
+<section id="home" class="d-flex align-items-center py-5">
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- LEFT SIDE (TEXT) -->
+            <div class="col-md-6 text-center text-md-start">
+
+                <h1 class="fw-bold mb-3">Hi, I'm Akash Maurya </h1>
+
+                <h4 id="typed-subtitle" class="mb-3 text-muted"></h4>
+                <p class="text-muted mt-3 medium">
+                    Open to Data Analyst & MIS roles
+                </p>
+
+                <p class="mb-4">
+                    I transform raw data into meaningful insights and build dashboards
+                    that help businesses make smarter decisions.
+                </p>
+
+                <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+                    <a href="#projects" class="btn btn-dark">
+                        View Projects
+                    </a>
+
+                    <a href="resume.pdf" download="Akash_Maurya_Resume.pdf" class="btn btn-outline-dark">
+                    Download Resume
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE (IMAGE) -->
+            <div class="col-md-6 text-center mt-4 mt-md-0">
+                <img 
+                    src="images/about/my.jpg" 
+                    alt="Profile Image"
+                    class="img-fluid rounded-circle"
+                    style="max-width: 300px;"
+                >
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- About Section -->
+<!-- ============================= -->
+<section id="about" class="py-5">
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold mb-3">About Me</h2>
+            <p class="text-muted">Get to know more about me and my background</p>
+        </div>
+
+       
+
+        <!-- About Text -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+
+            <p>
+                I am a data-focused problem solver with a strong foundation in Excel,SQL,
+                Python, and business analytics. I enjoy working with structured data,
+                building analytical models, and designing dashboards that translate
+                complex information into clear business decisions.
+            </p>
+
+            <p>
+                My experience includes data cleaning, exploratory data analysis,
+                KPI design, and dashboard development using modern visualization tools.
+                I am continuously improving my skills in data modeling,
+                statistical thinking, and performance analysis to deliver measurable impact.
+            </p>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- Projects Section -->
+<!-- ============================= -->
+
+<section id="projects" class="py-5">
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="text-start mb-5">
+            <h2 class="fw-bold mb-3">Featured Projects</h2>
+            <p class="text-muted">Some of my recent work</p>
+            <a href="https://github.com/skymaurya?tab=repositories" 
+            class="text-decoration-none project-link" 
+            target="_blank">
+   See All Projects →
+</a>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3 project-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">E-commerce Sales Analysis</h5>
+                        <p class="card-text">
+                            Delivered actionable insights by analyzing e-commerce transactions across customers, sellers, and products. 
+                            Detected declining growth trends and high retention risk, with 80% one-time buyers.
+                            Highlighted seller concentration contributing to 50% of revenue. 
+                            Provided strategic recommendations to improve customer lifetime value, optimize operations, and reduce business risk
+                        </p>
+
+                        <p class="mb-2">
+                            <span class="badge bg-dark">SQL</span>
+                            <span class="badge bg-dark">Tableau</span>
+                        </p>
+
+                        <p class="fw-bold mb-0">
+                            <a href="https://public.tableau.com/app/profile/akash.maurya3794/viz/E-CommerceAnalyticsDashboards/sellers_Dash" class="text-decoration-none">Live Dashboard</a> |
+                            <a href="https://github.com/skymaurya/e-commerce_analytics" class="text-decoration-none">GitHub</a>
+                        </p>
+                    </div>
+                   <div class="project-img-container">
+                    <img 
+                        src="images/project/sellers_dashboard.png" 
+                        alt="E-commerce Sales Analysis"
+                    >
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3 project-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Retail Inventory & Demand Analysis</h5>
+                        <p class="card-text">
+                            Developed an inventory and demand analysis solution using Excel, SQL, and Tableau to optimize business decisions. 
+                            Identified high-demand products contributing over 70% of sales, uncovered profit losses in key categories, and analyzed delivery efficiency across regions.
+                            Provided actionable insights to improve inventory allocation, reduce delays, and enhance overall profitability.
+                        </p>
+
+                        <p class="mb-2">
+                            <span class="badge bg-dark">Excel</span>
+                            <span class="badge bg-dark">SQL</span>
+                            <span class="badge bg-dark">Tableau</span>
+                        </p>
+
+                        <p class="fw-bold mb-0">
+                            <a href="https://public.tableau.com/app/profile/akash.maurya3794/viz/RetailInventoryDemandAnalysisDashboardExcelSQLTableauProject/Dashboard" class="text-decoration-none">Live Dashboard</a> |
+                            <a href="https://github.com/skymaurya/Inventory-Demand-Analysis" class="text-decoration-none">GitHub</a>
+                        </p>
+                    </div>
+                    <div class="project-img-container">
+                    <img 
+                        src="images/project/invent_retail.png" 
+                        alt="E-commerce Sales Analysis"
+                    >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3 project-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Automated Sales MIS Dashboard</h5>
+                        <p class="card-text">
+                            Developed an interactive Excel-based MIS dashboard to analyze sales performance across time, geography, and product segments.
+                            Achieved end-to-end reporting with automated refresh and PDF export. 
+                            Revealed peak sales in Q4, top-performing Technology category, and highest profit from Copiers, 
+                            while identifying loss areas, improving business visibility and decision-making efficiency.
+                        </p>
+                        <p class="mb-2">
+                            <span class="badge bg-dark">Excel</span>
+                            <span class="badge bg-dark">Dashboard</span>
+                        </p>
+
+                        <p class="fw-bold mb-0">
+                            <a href="https://1drv.ms/x/c/82095d9098aee8a1/IQD_sNhp0bv5TLy4eKx5cBgaARcJ4ek2Fo-G5HQ31VfFJYs?e=MFb6W9" class="text-decoration-none">Live Dashboard</a> |
+                            <a href="https://github.com/skymaurya/sales-mis-dashboard-excel" class="text-decoration-none">GitHub</a>
+                        </p>
+                    </div>
+                    <div class="project-img-container">
+                    <img 
+                        src="images/project/automated_sales.png" 
+                        alt="E-commerce Sales Analysis"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3 project-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Online Retail MIS Reporting & Dashboard</h5>
+                        <p class="card-text">
+                            Built an end-to-end MIS reporting and dashboard solution using a 500K+ retail dataset to analyze sales performance,
+                            product contribution, and returns (~19%).Identified revenue concentration (~84% UK) and enabled dynamic 7/14-day 
+                            trend tracking, improving short-term decision-making and visibility into demand patterns.
+                        </p>
+
+                        <p class="mb-2">
+                            <span class="badge bg-dark">Excel</span>
+                            <span class="badge bg-dark">Dashboarding</span>
+                        </p>
+
+                        <p class="fw-bold mb-0">
+                            <a href="https://1drv.ms/x/c/82095d9098aee8a1/IQDQLHIowaVbSY2o6VjN_3AjAdYzH2rcdqMmSiXm55qHe94?e=O6f9iJ" class="text-decoration-none">Live Dashboard</a> |
+                            <a href="https://github.com/skymaurya/online-retail-mis-analysis" class="text-decoration-none">GitHub</a>
+                        </p>
+                    </div>
+                   <div class="project-img-container">
+                    <img 
+                        src="images/project/online_retail.png" 
+                        alt="E-commerce Sales Analysis"
+                        >
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- Skills Section -->
+<!-- ============================= -->
+
+<section id="skills" class="py-5">
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="text-start mb-5">
+            <h2 class="fw-bold mb-3">Skills</h2>
+            <p class="text-muted">Technologies and tools I work with</p>
+        </div>
+
+        <!-- Skills Grid -->
+        <div class="row text-center g-4 row-cols-1 row-cols-md-4">
+
+            <!-- Skill 1 -->
+            <div class="col">
+                <div class="skill-card skill-1">
+                    <img 
+                        src="images/skills/3.png" 
+                        alt="Python"
+                        class="mb-3"
+                        style="width: 80px;"
+                    >
+                    <h5 class="fw-bold">SQL & Data Querying</h5>
+                    <p>
+                        Write complex SQL queries to analyze large datasets, perform joins,
+                        aggregations, and build data-driven reports for business decisions.
+                    </p>
+
+                    <p class="mb-2">
+                        <span class="badge bg-dark">SQL</span>
+                        <span class="badge bg-dark">MSSQL</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="col">
+                <div class="skill-card skill-2">
+                    <img 
+                        src="images/skills/2.png" 
+                        alt="Data Visualization"
+                        class="mb-3"
+                        style="width: 80px;"
+                    >
+                    <h5 class="fw-bold">Dashboarding & Visualization</h5>
+                    <p>
+                        Build interactive dashboards using Tableau and Excel to track KPIs,
+                        monitor performance, and communicate insights effectively.
+                    </p>
+                    <p class="mb-2">
+                        <span class="badge bg-dark">Tableau</span>
+                        <span class="badge bg-dark">Excel</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="col">
+                <div class="skill-card skill-3">
+                    <img 
+                        src="images/skills/4.png" 
+                        alt="SQL"
+                        class="mb-3"
+                        style="width: 80px;"
+                    >
+                   <h5 class="fw-bold">Business Insights</h5>
+                    <p>
+                        Translate data into actionable insights by identifying trends,
+                        patterns, and opportunities to improve business performance.
+                    </p>
+                    <p class="mb-2">
+                        <span class="badge bg-dark">KPI Design</span>
+                        <span class="badge bg-dark">Reporting</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="col">
+                <div class="skill-card skill-4">
+                    <img 
+                        src="images/skills/1.png" 
+                        alt="Data Storytelling"
+                        class="mb-3"
+                        style="width: 80px;"
+                    >
+                    <h5 class="fw-bold">Data Analysis</h5>
+                    <p>
+                        Perform data cleaning, transformation, and exploratory data analysis
+                        using Python and Excel to extract meaningful insights from raw datasets.
+                    </p>
+                    <p class="mb-2">
+                        <span class="badge bg-dark">Python</span>
+                        <span class="badge bg-dark">Excel</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- Certifications Section -->
+<!-- ============================= -->
+
+<section id="certifications" class="py-5">
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="text-start mb-5">
+            <h2 class="fw-bold mb-3">Certifications</h2>
+            <p class="text-muted">My professional certifications and achievements</p>
+        </div>
+        <!-- Certifications Grid -->
+        <div class="row g-4">
+            <!-- Certification 1 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="cert-card" data-verify-link="https://www.hackerrank.com/certificates/ea757373e333">
+                    <img 
+                        src="images/certifications/python_basic.jpg" 
+                        alt="Python Basics Certification"
+                    >
+                    <div class="cert-overlay">
+                        <div class="cert-info">
+                            <h6>Python Basics</h6>
+                            <p class="cert-issuer">Issued by: Hacker Rank</p>
+                        </div>
+                        <p class="cert-click-hint">Click to view certificate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certification 2 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="cert-card" data-verify-link="https://www.hackerrank.com/certificates/08e1a30be71a">
+                    <img 
+                        src="images/certifications/sql_intermediate.jpg" 
+                        alt="SQL Intermediate Certification"
+                    >
+                    <div class="cert-overlay">
+                        <div class="cert-info">
+                            <h6>SQL Intermediate</h6>
+                            <p class="cert-issuer">Issued by: Hacker Rank</p>
+                        </div>
+                        <p class="cert-click-hint">Click to view certificate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more certifications as needed -->
+            <!-- Certification 3 
+            <div class="col-md-4 col-sm-6">
+                <div class="cert-card" data-verify-link="https://example.com/verify3">
+                    <img 
+                        src="images/certifications/cert3.jpg" 
+                        alt="Your Certification"
+                    >
+                    <div class="cert-overlay">
+                        <div class="cert-info">
+                            <h6>Certification Name</h6>
+                            <p class="cert-issuer">Issued by: Organization</p>
+                        </div>
+                        <p class="cert-click-hint">Click to view certificate</p>
+                    </div>
+                </div>
+            </div>
+            -->
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- Contact Me Section -->
+<!-- ============================= -->
+<!-- ============================= -->
+<!-- Contact Section (Improved) -->
+<!-- ============================= -->
+<section id="contact" class="py-5 text-white">
+    <div class="container">
+
+        <!-- Title -->
+        <div class="text-start mb-5">
+            <h2 class="fw-bold mb-3">Contact Me</h2>
+            <p class="text-muted">Let’s connect and discuss opportunities</p>
+        </div>
+
+        <!-- Contact Cards -->
+        <div class="row g-4">
+
+            <!-- Email -->
+            <div class="col-md-6">
+                <a href="mailto:akashcric17@gmail.com" class="contact-card text-decoration-none d-flex align-items-center gap-3 p-4">
+                    <img src="icons/mail_icon.jpg" alt="Email" style="width: 40px;">
+                    <div>
+                        <h6 class="mb-1 fw-bold">Email</h6>
+                        <p class="mb-0">akashcric17@gmail.com</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+                <div class="contact-card d-flex align-items-center gap-3 p-4">
+                    <img src="icons/ph_icon.webp" alt="Phone" style="width: 40px;">
+                    <div>
+                        <h6 class="mb-1 fw-bold">Phone</h6>
+                        <p class="mb-0">+91 9129423643</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Social Links -->
+        <div class="text-center mt-5">
+
+            <a href="https://linkedin.com" target="_blank" class="social-icon">
+            <div class="social-icon-bg">
+                <img src="icons/linkedin.png" alt="LinkedIn">
+            </div>
+            </a>
+
+            <a href="https://github.com/skymaurya" target="_blank" class="social-icon">
+                <div class="social-icon-bg">
+                    <img src="icons/github.png" alt="GitHub">
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+
+        <h5 class="fw-bold mb-2">Akash Maurya</h5>
+        <p class="mb-3">Data Analyst | Excel | SQL | Python | Tableau</p>
+
+        <div class="d-flex justify-content-center gap-3 mb-3">
+            <a href="#home" class="text-white text-decoration-none">Home</a>
+            <a href="#about" class="text-white text-decoration-none">About</a>
+            <a href="#projects" class="text-white text-decoration-none">Projects</a>
+            <a href="#skills" class="text-white text-decoration-none">Skills</a>
+            <a href="#certifications" class="text-white text-decoration-none">Certifications</a>
+            <a href="#contact" class="text-white text-decoration-none">Contact</a>
+        </div>
+
+        <p class="mb-0 small">
+            © 2026 Akash Maurya. All rights reserved.
+        </p>
+
+    </div>
+</footer>
+
+
+    <!-- Bootstrap JavaScript (needed later for components) -->
+<script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+<script>
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const bootstrapNav = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navbarCollapse.classList.contains('show')) {
+                bootstrapNav.hide();
+            }
+        });
+    });
+
+    if (navbarToggler) {
+        navbarToggler.addEventListener('mouseenter', () => {
+            if (!navbarCollapse.classList.contains('show')) {
+                bootstrapNav.show();
+            }
+        });
+    }
+
+    const navbarElement = document.querySelector('nav.navbar');
+    if (navbarElement) {
+        navbarElement.addEventListener('mouseleave', () => {
+            if (navbarCollapse.classList.contains('show')) {
+                bootstrapNav.hide();
+            }
+        });
+    }
+
+    const heroPhrases = [
+        'Data Analyst',
+        'MIS Reporting',
+        'SQL',
+        'Excel',
+        'Tableau'
+    ];
+    const typedSubtitle = document.getElementById('typed-subtitle');
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let displayText = '';
+    let removing = false;
+
+    function typeHeroText() {
+        if (!typedSubtitle) return;
+
+        const currentPhrase = heroPhrases[phraseIndex];
+
+        if (!removing) {
+            displayText = currentPhrase.slice(0, charIndex + 1);
+            typedSubtitle.textContent = displayText;
+            charIndex++;
+
+            if (charIndex === currentPhrase.length) {
+                removing = true;
+                setTimeout(typeHeroText, 1200);
+                return;
+            }
+        } else {
+            displayText = currentPhrase.slice(0, charIndex - 1);
+            typedSubtitle.textContent = displayText;
+            charIndex--;
+
+            if (charIndex === 0) {
+                removing = false;
+                phraseIndex = (phraseIndex + 1) % heroPhrases.length;
+            }
+        }
+        setTimeout(typeHeroText, removing ? 70 : 100);
+    }
+
+    window.addEventListener('load', () => {
+        typeHeroText();
+
+        const revealElements = document.querySelectorAll('section, .card, .btn, .navbar-brand');
+        revealElements.forEach(el => el.classList.add('scroll-reveal'));
+
+        function handleScrollReveal() {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.82) {
+                    el.classList.add('scrolled');
+                }
+            });
+        }
+
+        handleScrollReveal();
+        window.addEventListener('scroll', handleScrollReveal);
+
+        // Certification Card Click Handler
+        const certCards = document.querySelectorAll('.cert-card');
+        certCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const verifyLink = card.getAttribute('data-verify-link');
+                if (verifyLink) {
+                    window.open(verifyLink, '_blank');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
